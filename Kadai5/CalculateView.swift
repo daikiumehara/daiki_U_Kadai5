@@ -25,8 +25,8 @@ enum CalcError: Error {
 }
 
 class CalculateView: UIView, Calculator {
-    @IBOutlet var firstTextField: UITextField!
-    @IBOutlet var secondTextField: UITextField!
+    @IBOutlet private var firstTextField: UITextField!
+    @IBOutlet private var secondTextField: UITextField!
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNib()
