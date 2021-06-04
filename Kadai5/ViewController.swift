@@ -17,16 +17,7 @@ class ViewController: UIViewController {
             case .success(let value):
                 answerLabel.text = String(value)
             case .failure(let error):
-                switch error {
-                case .noneLeftValue:
-                    makeAndShowAlert(CalcError.noneLeftValue.detail)
-                case .noneRightValue:
-                    makeAndShowAlert(CalcError.noneRightValue.detail)
-                case .zero:
-                    makeAndShowAlert(CalcError.zero.detail)
-                default: // CalcErrorにエラーを追加した時を考えたdefault
-                    makeAndShowAlert("予想外のエラーが発生しました")
-                }
+                makeAndShowAlert(error.detail)
             }
         }
     }
@@ -38,4 +29,3 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 }
-

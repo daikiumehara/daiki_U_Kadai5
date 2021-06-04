@@ -7,6 +7,6 @@ opt_in_rules:
   - vertical_whitespace_opening_braces
 
 excluded:
-  - Kadai4/AppDelegate.swift
-  - Kadai4/SceneDelegate.swift
+  - Kadai5/AppDelegate.swift
+  - Kadai5/SceneDelegate.swift
   - Pods
