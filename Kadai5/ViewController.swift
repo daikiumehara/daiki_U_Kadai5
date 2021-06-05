@@ -7,8 +7,15 @@
 
 import UIKit
 
-enum CalcError: Error {
-    case invalidCalculation(String)
+struct CalcError: Error {
+    enum Cause {
+        case firstNumber
+        case secondNumber
+        case other
+    }
+
+    var message: String
+    var cause: Cause
 }
 
 typealias CalcCompletionHandler<T> = (Result<T, CalcError>) -> Void
@@ -42,8 +49,19 @@ class ViewController: UIViewController {
             switch $0 {
             case .success(let value):
                 answerLabel.text = String(value)
-            case .failure(.invalidCalculation(let message)):
-                makeAndShowAlert(message: message)
+            case .failure(let error):
+                makeAndShowAlert(message: error.message)
+
+                switch error.cause {
+                case .firstNumber:
+                    // 1つ目のテキストフィールドにフォーカスを移動する
+                    break
+                case .secondNumber:
+                    // 2つ目のテキストフィールドにフォーカスを移動する
+                    break
+                case .other:
+                    break
+                }
             }
         })
     }

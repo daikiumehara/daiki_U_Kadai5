@@ -12,7 +12,10 @@ struct DivisionCalculator: CalculatorProtocol {
         guard num2 != 0 else {
             return completion(
                 .failure(
-                    .invalidCalculation("割る数には0を入力しないでください")
+                    CalcError(
+                        message: "割る数には0を入力しないでください",
+                        cause: .secondNumber
+                    )
                 )
             )
         }
