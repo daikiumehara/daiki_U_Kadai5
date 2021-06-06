@@ -36,30 +36,52 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="3" translatesAutoresizingMaskIntoConstraints="NO" id="Kf1-el-vRz">
+                                <rect key="frame" x="92" y="295" width="230" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="UJj-zX-baX"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="" image="plus" catalog="system"/>
+                                    <segment title="" image="minus" catalog="system"/>
+                                    <segment title="" image="multiply" catalog="system"/>
+                                    <segment title="" image="divide" catalog="system"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didChangedOparatorSegmentedValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="Oor-EN-BVG"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="16s-XQ-iP5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Jbn-s1-Yw3"/>
+                            <constraint firstItem="Kf1-el-vRz" firstAttribute="top" secondItem="6qH-Am-Ulq" secondAttribute="bottom" constant="40" id="Mrx-Nx-e4f"/>
                             <constraint firstItem="6qH-Am-Ulq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZGk-n9-8i4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="16s-XQ-iP5" secondAttribute="trailing" constant="20" id="ocl-SR-uU4"/>
                             <constraint firstItem="16s-XQ-iP5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="oqU-Bb-IeH"/>
                             <constraint firstItem="6qH-Am-Ulq" firstAttribute="top" secondItem="jaO-Tw-Rgu" secondAttribute="bottom" constant="20" id="ozE-zw-OXc"/>
                             <constraint firstItem="jaO-Tw-Rgu" firstAttribute="top" secondItem="16s-XQ-iP5" secondAttribute="bottom" constant="20" id="qby-O4-S2d"/>
+                            <constraint firstItem="Kf1-el-vRz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zeb-rT-eCQ"/>
                             <constraint firstItem="jaO-Tw-Rgu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zh0-3m-VMm"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="answerLabel" destination="6qH-Am-Ulq" id="dpe-Zh-Dre"/>
-                        <outlet property="divideView" destination="16s-XQ-iP5" id="xTN-2c-sup"/>
+                        <outlet property="calculateView" destination="16s-XQ-iP5" id="xTN-2c-sup"/>
+                        <outlet property="oparatorSegmented" destination="Kf1-el-vRz" id="FQF-Go-yhb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="43" y="117"/>
+            <point key="canvasLocation" x="42.028985507246382" y="116.51785714285714"/>
         </scene>
     </scenes>
     <resources>
+        <image name="divide" catalog="system" width="128" height="103"/>
+        <image name="minus" catalog="system" width="128" height="24"/>
+        <image name="multiply" catalog="system" width="128" height="111"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

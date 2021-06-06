@@ -7,6 +7,7 @@
 
 import UIKit
 
+//エラーの種類を複数用意するのではなく、計算が失敗するエラーを作成し、エラー文を渡すことでエラーの種類を一つにしている。
 enum CalcError: Error {
     case invalidCalculation(String)
 }
@@ -18,36 +19,38 @@ protocol CalculatorProtocol {
 }
 
 class ViewController: UIViewController {
-    @IBOutlet private var divideView: CalculateView!
+    @IBOutlet private var calculateView: CalculateView!
     @IBOutlet private var answerLabel: UILabel!
-
-    private let calculator: CalculatorProtocol = DivisionCalculator()
-
+    @IBOutlet private var oparatorSegmented: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        divideView.configure(calculation: .division)
+        calculateView.configure(calculation: .division)
     }
 
     @IBAction private func didTapCalcButton(_ sender: Any) {
-        guard let firstValue = divideView.firstValue else {
-            makeAndShowAlert(message: "左側に数字を入力してください")
+        guard let firstValue = calculateView.firstValue else {
+            makeAndShowAlert(message: "左側の値を入力してください")
             return
         }
-        guard let secondValue = divideView.secondValue else {
-            makeAndShowAlert(message: "右側に数字を入力してください")
+        guard let secondValue = calculateView.secondValue else {
+            makeAndShowAlert(message: "右側の値を入力してください")
             return
         }
-
-        calculator.calculate(num1: firstValue, num2: secondValue, completion: {
-            switch $0 {
+        calculateView.calculator.calculate(num1: firstValue, num2: secondValue) { result in
+            switch result {
             case .success(let value):
                 answerLabel.text = String(value)
             case .failure(.invalidCalculation(let message)):
                 makeAndShowAlert(message: message)
             }
-        })
+        }
     }
-
+    @IBAction private func didChangedOparatorSegmentedValue(_ sender: Any) {
+        let oparator = CalculationType(rawValue: oparatorSegmented.selectedSegmentIndex)
+        calculateView.configure(calculation: oparator!)
+    }
+    
     private func makeAndShowAlert(message: String) {
         let alert = UIAlertController(title: "課題5", message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)

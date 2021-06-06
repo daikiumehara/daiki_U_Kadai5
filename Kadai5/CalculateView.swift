@@ -7,65 +7,75 @@
 
 import UIKit
 
-class CalculateView: UIView {
-    enum CalculationType {
-        case addition
-        case subtraction
-        case multiplication
-        case division
-
-        var text: String {
-            switch self {
-            case .addition:
-                return "+"
-            case .subtraction:
-                return "−"
-            case .multiplication:
-                return "×"
-            case .division:
-                return "÷"
-            }
+enum CalculationType: Int {
+    case addition
+    case subtraction
+    case multiplication
+    case division
+    
+    var text: String {
+        switch self {
+        case .addition:
+            return "+"
+        case .subtraction:
+            return "−"
+        case .multiplication:
+            return "×"
+        case .division:
+            return "÷"
         }
     }
+    
+    var calclator: CalculatorProtocol {
+        switch self {
+        case .addition:
+            return AddtionCalculator()
+        case .subtraction:
+            return SubtractionCalclator()
+        case .multiplication:
+            return MultiplicationCalculator()
+        case .division:
+            return DivisionCalculator()
+        }
+    }
+}
 
+class CalculateView: UIView {
+    
     @IBOutlet private weak var firstTextField: UITextField!
     @IBOutlet private weak var secondTextField: UITextField!
     @IBOutlet private weak var operatorLabel: UILabel!
-
-    var firstText: String? {
-        firstTextField.text
-    }
-
-    var secondText: String? {
-        secondTextField.text
-    }
-
+    
+    private(set) var calculator: CalculatorProtocol!
+    
     var firstValue: Double? {
-        firstText.flatMap(Double.init)
+        Double(firstTextField.text!)
     }
-
+    
     var secondValue: Double? {
-        secondText.flatMap(Double.init)
+        Double(secondTextField.text!)
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNib()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadNib()
     }
-
+    
     private func loadNib() {
         let nib = UINib(nibName: String(describing: type(of: self)), bundle: nil)
         guard let view = nib.instantiate(withOwner: self, options: nil).first as? UIView else { return }
         view.frame = self.bounds
         self.addSubview(view)
     }
-
+    
     func configure(calculation: CalculationType) {
         operatorLabel.text = calculation.text
+        calculator = calculation.calclator
     }
+
 }
