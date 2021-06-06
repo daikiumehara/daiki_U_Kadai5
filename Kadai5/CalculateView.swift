@@ -7,53 +7,65 @@
 
 import UIKit
 
-typealias CalcResult<T> = (Result<T, CalcError>) -> Void
+class CalculateView: UIView {
+    enum CalculationType {
+        case addition
+        case subtraction
+        case multiplication
+        case division
 
-protocol Calculator: AnyObject {
-    func calc(_ completion: CalcResult<Double>)
-}
-
-enum CalcError: Error {
-    case noneLeftValue, noneRightValue, zero
-    var detail: String {
-        switch self {
-        case .noneLeftValue: return "左側に数字を入力してください"
-        case .noneRightValue: return "右側に数字を入力してください"
-        case .zero: return "割る数には0を入力しないでください"
+        var text: String {
+            switch self {
+            case .addition:
+                return "+"
+            case .subtraction:
+                return "−"
+            case .multiplication:
+                return "×"
+            case .division:
+                return "÷"
+            }
         }
     }
-}
 
-class CalculateView: UIView, Calculator {
-    @IBOutlet private var firstTextField: UITextField!
-    @IBOutlet private var secondTextField: UITextField!
+    @IBOutlet private weak var firstTextField: UITextField!
+    @IBOutlet private weak var secondTextField: UITextField!
+    @IBOutlet private weak var operatorLabel: UILabel!
+
+    var firstText: String? {
+        firstTextField.text
+    }
+
+    var secondText: String? {
+        secondTextField.text
+    }
+
+    var firstValue: Double? {
+        firstText.flatMap(Double.init)
+    }
+
+    var secondValue: Double? {
+        secondText.flatMap(Double.init)
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNib()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadNib()
     }
-    
+
     private func loadNib() {
         let nib = UINib(nibName: String(describing: type(of: self)), bundle: nil)
         guard let view = nib.instantiate(withOwner: self, options: nil).first as? UIView else { return }
         view.frame = self.bounds
         self.addSubview(view)
     }
-    
-    func calc(_ completion: CalcResult<Double>) {
-        guard let firstValue = Double(firstTextField.text!) else {
-            return completion(.failure(.noneLeftValue))
-        }
-        guard let secondValue = Double(secondTextField.text!) else {
-            return completion(.failure(.noneRightValue))
-        }
-        if secondValue == 0 {
-            return completion(.failure(.zero))
-        }
-        return completion(.success(firstValue / secondValue))
+
+    func configure(calculation: CalculationType) {
+        operatorLabel.text = calculation.text
     }
 }

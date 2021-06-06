@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalculateView" customModule="Kadai5" customModuleProvider="target">
             <connections>
                 <outlet property="firstTextField" destination="LYj-yO-XMb" id="ObM-cD-0kI"/>
+                <outlet property="operatorLabel" destination="JpL-QK-ZF9" id="A8Z-WC-XJg"/>
                 <outlet property="secondTextField" destination="dHY-o4-62U" id="VIE-E8-qGv"/>
             </connections>
         </placeholder>
